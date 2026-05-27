@@ -4,7 +4,7 @@
 
 🌎 **[한국어 버전 README (Korean Version)](./README.ko.md)**
 
-<video src="https://github.com/kernullist/dewdrop-canvas/raw/main/demo/dewdrop-canvas-demo.mp4" width="100%" controls autoplay loop muted></video>
+![Dewdrop Canvas Demo](demo/dewdrop-canvas-demo.mp4)
 
 ---
 
