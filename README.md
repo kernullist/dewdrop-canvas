@@ -4,7 +4,9 @@
 
 🌎 **[한국어 버전 README (Korean Version)](./README.ko.md)**
 
-<video src="demo/dewdrop-canvas-demo.mp4" width="100%" controls autoplay loop muted></video>
+<video src="https://github.com/kernullist/dewdrop-canvas/raw/main/demo/dewdrop-canvas-demo.mp4" width="100%" controls autoplay loop muted></video>
+
+---
 
 Dewdrop Canvas is an immersive, premium digital workspace where ideas are represented as glowing, organic liquid dewdrops. Using advanced HTML5 2D Canvas compositing, hardware-accelerated CSS filter blending (`blur(12px) contrast(20)`), and spring-damping physics, dewdrops warp and snap together organically like real water droplets.
 

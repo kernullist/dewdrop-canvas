@@ -4,7 +4,7 @@
 
 🌎 **[English Version README](./README.md)**
 
-<video src="demo/dewdrop-canvas-demo.mp4" width="100%" controls autoplay loop muted></video>
+<video src="https://github.com/kernullist/dewdrop-canvas/raw/main/demo/dewdrop-canvas-demo.mp4" width="100%" controls autoplay loop muted></video>
 
 **Dewdrop Canvas(물방울 캔버스)**는 아이디어를 스스로 빛나는 유기적인 액체 물방울 형태로 표현하여 시각화해 주는 프리미엄 디지털 마인드맵 보드입니다. 하드웨어 가속 CSS 필터 혼합 기술(`blur(12px) contrast(20)`)과 정밀한 물리 스프링-댐핑 공식(Spring-Mass Damping Physics)을 적용하여, 물방울들을 서로 가까이 드래그하면 실제 물방울처럼 경계면이 쫀득하게 늘어나며 결합하는 환상적인 액체 인터랙션을 선사합니다.
 
