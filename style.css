@@ -1,0 +1,1484 @@
+/* ==========================================================================
+   Dewdrop Canvas Premium Design System & Stylesheet
+   ========================================================================== */
+
+:root {
+  --bg-space: #030208;
+  --bg-darker: #010103;
+  --primary: #06b6d4;      /* Soft cyan dewdrop glow */
+  --primary-glow: rgba(6, 182, 212, 0.35);
+  --secondary: #6366f1;    /* Deep spiritual indigo */
+  --secondary-glow: rgba(99, 102, 241, 0.3);
+  --accent: #10b981;       /* AI enhancement emerald */
+  --accent-glow: rgba(16, 185, 129, 0.4);
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dark: #475569;
+  
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-round: 50%;
+  
+  --glass-bg: rgba(11, 8, 23, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --glass-glow: 0 12px 40px 0 rgba(3, 2, 8, 0.6);
+  
+  --font-display: 'Outfit', 'Pretendard', sans-serif;
+  --font-body: 'Inter', 'Pretendard', sans-serif;
+  
+  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-space);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ==========================================================================
+   Backdrops & Cosmic Glows
+   ========================================================================== */
+
+.stars-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+    radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
+  background-size: 550px 550px, 350px 350px, 250px 250px;
+  background-position: 0 0, 40px 60px, 130px 270px;
+  opacity: 0.12;
+  z-index: 0;
+  animation: cosmic-drift 120s linear infinite;
+}
+
+.ambient-glow {
+  position: absolute;
+  width: 60vw;
+  height: 60vh;
+  top: 20vh;
+  left: 20vw;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.04) 0%, rgba(6, 182, 212, 0.02) 50%, transparent 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes cosmic-drift {
+  from { background-position: 0 0, 40px 60px, 130px 270px; }
+  to { background-position: 550px 550px, 390px 410px, 380px 820px; }
+}
+
+/* Glassmorphism panel styling */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--glass-glow);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 255, 255, 0.09);
+  box-shadow: 0 16px 48px 0 rgba(3, 2, 8, 0.8), 0 0 1px 1px rgba(99, 102, 241, 0.05);
+}
+
+/* ==========================================================================
+   Layout Hierarchy
+   ========================================================================== */
+
+.workspace-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  position: relative;
+}
+
+/* Sidebar panel */
+.sidebar {
+  width: 360px;
+  height: 100%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0;
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
+  z-index: 10;
+  background: rgba(8, 6, 18, 0.65);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 35px;
+}
+
+.brand-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 4px 15px rgba(6, 182, 212, 0.25);
+}
+
+.brand-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  background: linear-gradient(to right, #ffffff, #cbd5e1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.section-desc {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+/* Custom Textarea */
+textarea {
+  width: 100%;
+  height: 100px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+  transition: all var(--transition-fast);
+  margin-bottom: 12px;
+}
+
+textarea:focus {
+  border-color: rgba(6, 182, 212, 0.3);
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.08);
+  background: rgba(0, 0, 0, 0.45);
+}
+
+/* Buttons */
+.btn-primary {
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border: none;
+  border-radius: var(--radius-sm);
+  color: white;
+  padding: 11px 16px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+  transition: all var(--transition-fast);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+  filter: brightness(1.08);
+}
+
+.btn-primary:active {
+  transform: translateY(0.5px);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  color: var(--text-muted);
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-main);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* API input panel */
+.api-key-wrapper {
+  position: relative;
+}
+
+#api-key-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  padding: 8px 12px;
+  font-size: 11px;
+  outline: none;
+  margin-bottom: 6px;
+  transition: all var(--transition-fast);
+}
+
+#api-key-input:focus {
+  border-color: rgba(6, 182, 212, 0.25);
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.api-status {
+  font-size: 10px;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+
+.api-status.connected {
+  color: var(--accent);
+}
+
+.api-status.warning-status {
+  color: #f97316; /* warning orange */
+}
+
+/* History List */
+.history-list {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-right: 4px;
+}
+
+.history-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+}
+
+.empty-history {
+  font-size: 11px;
+  color: var(--text-dark);
+  text-align: center;
+  margin: auto;
+  line-height: 1.5;
+  padding: 0 10px;
+}
+
+.history-item {
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.history-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(6, 182, 212, 0.15);
+}
+
+.history-item-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--primary);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.history-item-body {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ==========================================================================
+   Right Column: Canvas Workspace Area
+   ========================================================================== */
+
+.canvas-workspace {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-darker);
+}
+
+.workspace-header {
+  padding: 24px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.workspace-header button {
+  pointer-events: auto;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(6, 182, 212, 0.06);
+  border: 1px solid rgba(6, 182, 212, 0.15);
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--primary);
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  box-shadow: 0 0 8px var(--primary);
+  animation: beacon 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes beacon {
+  from { opacity: 0.3; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1.1); }
+}
+
+/* Liquid Compositor Container */
+.liquid-compositor-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Blur-contrast trick to make liquid blob merging completely automatic */
+  filter: blur(12px) contrast(20);
+  background: var(--bg-darker);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+#physics-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Overlay of clear cards positioned exactly over the filtered blobs */
+.memos-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   Dewdrop Cards (Memos)
+   ========================================================================== */
+
+.dewdrop-card {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: var(--radius-round);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  cursor: grab;
+  user-select: none;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  
+  /* GPU Hardware Acceleration safeguards to prevent element vanishing/flickering bug */
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, border-radius, opacity;
+  
+  /* Glassmorphism specifically tuned for overlaying the glowing dewdrop background */
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  
+  /* Springy physics bounce transition for immersive jelly effect */
+  transition: border-color var(--transition-fast), 
+              box-shadow var(--transition-fast), 
+              background var(--transition-fast), 
+              transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              border-radius 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.dewdrop-card:hover {
+  border-color: var(--card-core-color, var(--primary));
+  box-shadow: 0 16px 35px var(--card-glow-color, var(--primary-glow)), 0 0 1px 1px rgba(99, 102, 241, 0.1);
+  background: rgba(10, 8, 22, 0.95); /* Semi-solid backplate ensures 100% text readability without screen flashes */
+  border-radius: 22px; /* Smooth jelly rounded corner rectangle swap! */
+  transform: translate(-50%, -50%) scale(1.08);
+  z-index: 100; /* Float to absolute top on hover */
+}
+
+.dewdrop-card:active {
+  cursor: grabbing;
+  transform: translate(-50%, -50%) scale(0.96);
+  border-color: rgba(99, 102, 241, 0.4);
+}
+
+/* Merging animation alert state */
+.dewdrop-card.merging {
+  animation: pulse-orange 1.2s infinite alternate ease-in-out;
+  border-color: rgba(249, 115, 22, 0.4);
+  pointer-events: none;
+}
+
+/* AI active thinking holographic aura load state */
+.dewdrop-card.ai-thinking {
+  animation: thinking-cosmic-glow 1.5s infinite alternate ease-in-out;
+  border-color: transparent !important;
+  pointer-events: none !important; /* Suspend physics interaction during active thinking */
+  cursor: wait;
+}
+
+.dewdrop-card.ai-thinking .dewdrop-text {
+  filter: blur(1.5px); /* Slightly blur the content to signify active mutation */
+  opacity: 0.55;
+  transition: filter 0.4s ease, opacity 0.4s ease;
+}
+
+@keyframes thinking-cosmic-glow {
+  0% {
+    box-shadow: 0 0 20px 2px var(--card-glow-color, var(--primary-glow)),
+                inset 0 0 10px rgba(6, 182, 212, 0.2);
+    border: 1px solid var(--card-glow-color, rgba(6, 182, 212, 0.3));
+    background: rgba(8, 6, 20, 0.5);
+    transform: translate(-50%, -50%) scale(0.98);
+  }
+  100% {
+    box-shadow: 0 0 45px 12px var(--card-glow-color, rgba(6, 182, 212, 0.45)), 
+                0 0 70px 18px rgba(99, 102, 241, 0.35),
+                inset 0 0 20px rgba(6, 182, 212, 0.3);
+    border: 1px solid var(--card-core-color, var(--accent));
+    background: rgba(11, 8, 25, 0.78);
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+@keyframes pulse-orange {
+  from { box-shadow: 0 0 10px rgba(249, 115, 22, 0.15); }
+  to { box-shadow: 0 0 25px rgba(249, 115, 22, 0.35); }
+}
+
+.dewdrop-text {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--text-main);
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+  transition: max-height 0.4s ease;
+}
+
+.dewdrop-card:hover .dewdrop-text {
+  -webkit-line-clamp: unset;
+  overflow-y: hidden; /* Hide scrollbars to prevent browser events from hijacking pointer actions */
+  max-height: 120px; /* Capped nicely within the expanded jelly boundary */
+  pointer-events: none !important; /* Force mouse down to penetrate directly to the card! */
+}
+
+.dewdrop-date {
+  font-family: var(--font-display);
+  font-size: 9px;
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-weight: 300;
+  pointer-events: none;
+}
+
+/* Floating instructions */
+.floating-tips {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  font-size: 11px;
+  color: var(--text-muted);
+  pointer-events: none;
+  z-index: 5;
+  background: rgba(7, 5, 15, 0.7);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   AI Synthesis Fullscreen Overlay
+   ========================================================================== */
+
+.synthesis-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(2, 1, 6, 0.85);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-slow);
+}
+
+.synthesis-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.synthesis-panel {
+  width: 480px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ==========================================================================
+   AI Waiting Animation Styles
+   ========================================================================== */
+
+/* Fullscreen Ambient Floating Bubbles Backdrop */
+.synthesis-bg-bubbles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.synthesis-bg-bubbles .bubble {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(45px) saturate(160%);
+  opacity: 0.12;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* Individual Cosmic Bubble Settings & Unique Floating Paths */
+.synthesis-bg-bubbles .b-1 {
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, var(--primary) 0%, transparent 80%);
+  left: 8%;
+  top: 15%;
+  animation: float-cycle-1 25s infinite alternate ease-in-out;
+}
+.synthesis-bg-bubbles .b-2 {
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, var(--secondary) 0%, transparent 85%);
+  right: 12%;
+  top: 8%;
+  animation: float-cycle-2 30s infinite alternate ease-in-out;
+}
+.synthesis-bg-bubbles .b-3 {
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 80%);
+  left: 15%;
+  bottom: 12%;
+  animation: float-cycle-3 28s infinite alternate ease-in-out;
+}
+.synthesis-bg-bubbles .b-4 {
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, #f43f5e 0%, transparent 75%);
+  right: 20%;
+  bottom: 18%;
+  animation: float-cycle-4 22s infinite alternate ease-in-out;
+}
+.synthesis-bg-bubbles .b-5 {
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle, #8b5cf6 0%, transparent 80%);
+  left: 42%;
+  top: 4%;
+  animation: float-cycle-5 35s infinite alternate ease-in-out;
+}
+.synthesis-bg-bubbles .b-6 {
+  width: 210px;
+  height: 210px;
+  background: radial-gradient(circle, #0ea5e9 0%, transparent 75%);
+  right: 5%;
+  bottom: 40%;
+  animation: float-cycle-6 24s infinite alternate ease-in-out;
+}
+.synthesis-bg-bubbles .b-7 {
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+  left: 28%;
+  top: 48%;
+  animation: float-cycle-7 27s infinite alternate ease-in-out;
+}
+.synthesis-bg-bubbles .b-8 {
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, transparent 80%);
+  right: 35%;
+  bottom: 3%;
+  animation: float-cycle-8 32s infinite alternate ease-in-out;
+}
+
+@keyframes float-cycle-1 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(60px, -80px) scale(1.15); }
+}
+@keyframes float-cycle-2 {
+  0% { transform: translate(0, 0) scale(1.1); }
+  100% { transform: translate(-90px, 70px) scale(0.85); }
+}
+@keyframes float-cycle-3 {
+  0% { transform: translate(0, 0) scale(0.95); }
+  100% { transform: translate(70px, 50px) scale(1.2); }
+}
+@keyframes float-cycle-4 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-50px, -60px) scale(0.8); }
+}
+@keyframes float-cycle-5 {
+  0% { transform: translate(0, 0) scale(1.05); }
+  100% { transform: translate(100px, 90px) scale(0.9); }
+}
+@keyframes float-cycle-6 {
+  0% { transform: translate(0, 0) scale(0.9); }
+  100% { transform: translate(-80px, -70px) scale(1.15); }
+}
+@keyframes float-cycle-7 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(60px, 60px) scale(0.85); }
+}
+@keyframes float-cycle-8 {
+  0% { transform: translate(0, 0) scale(1.1); }
+  100% { transform: translate(-70px, 80px) scale(0.95); }
+}
+
+.synthesis-aura {
+  width: 140px;
+  height: 140px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  z-index: 10;
+}
+
+.droplet-core {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-round);
+  background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+  background-size: 200% 200%;
+  box-shadow: 0 0 35px 8px var(--primary-glow), inset 0 0 12px rgba(255, 255, 255, 0.4);
+  z-index: 5;
+  animation: aurora-hue 6s infinite alternate ease-in-out, pulse-scale 3s infinite alternate ease-in-out;
+}
+
+@keyframes aurora-hue {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pulse-scale {
+  0% { transform: scale(0.92); }
+  100% { transform: scale(1.1); }
+}
+
+.droplet-pulse {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-round);
+  border: 1px solid var(--primary);
+  background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+  animation: pulse-ring 2.2s infinite ease-out;
+  opacity: 0.8;
+  z-index: 4;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* Concentric Orbiting Dashed Rings */
+.droplet-orbit-ring {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.droplet-orbit-ring.ring-1 {
+  width: 90px;
+  height: 90px;
+  border: 1px dashed rgba(6, 182, 212, 0.35);
+  animation: spin-clockwise 15s linear infinite;
+  z-index: 3;
+}
+
+.droplet-orbit-ring.ring-2 {
+  width: 130px;
+  height: 130px;
+  border: 1px dashed rgba(99, 102, 241, 0.25);
+  animation: spin-counter-clockwise 22s linear infinite;
+  z-index: 2;
+}
+
+@keyframes spin-clockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-counter-clockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+/* Orbiting Satellite Droplets */
+.satellite-droplet {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0%, var(--primary) 70%);
+  box-shadow: 0 0 12px var(--primary);
+  pointer-events: none;
+}
+
+.satellite-droplet.sat-1 {
+  width: 10px;
+  height: 10px;
+  z-index: 6;
+  animation: orbit-satellite-1 8s infinite linear;
+}
+
+.satellite-droplet.sat-2 {
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #ffffff 0%, var(--accent) 70%);
+  box-shadow: 0 0 15px var(--accent);
+  z-index: 1;
+  animation: orbit-satellite-2 12s infinite linear;
+}
+
+/* 3D simulated elliptical orbit using transform layers */
+@keyframes orbit-satellite-1 {
+  0% {
+    transform: rotate(0deg) translateX(45px) rotate(0deg) scale(0.8);
+    opacity: 0.5;
+    z-index: 1;
+  }
+  25% {
+    opacity: 0.9;
+    z-index: 6;
+  }
+  50% {
+    transform: rotate(180deg) translateX(45px) rotate(-180deg) scale(1.2);
+    opacity: 1;
+    z-index: 6;
+  }
+  75% {
+    opacity: 0.6;
+    z-index: 1;
+  }
+  100% {
+    transform: rotate(360deg) translateX(45px) rotate(-360deg) scale(0.8);
+    opacity: 0.5;
+    z-index: 1;
+  }
+}
+
+@keyframes orbit-satellite-2 {
+  0% {
+    transform: rotate(180deg) translateX(65px) rotate(-180deg) scale(1.2);
+    opacity: 1;
+    z-index: 6;
+  }
+  25% {
+    opacity: 0.6;
+    z-index: 1;
+  }
+  50% {
+    transform: rotate(360deg) translateX(65px) rotate(-360deg) scale(0.8);
+    opacity: 0.5;
+    z-index: 1;
+  }
+  75% {
+    opacity: 0.9;
+    z-index: 6;
+  }
+  100% {
+    transform: rotate(540deg) translateX(65px) rotate(-540deg) scale(1.2);
+    opacity: 1;
+    z-index: 6;
+  }
+}
+
+.synthesis-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  background: linear-gradient(to right, #ffffff, var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.synthesis-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 30px;
+}
+
+.synthesis-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--text-dark);
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-round);
+  background-color: var(--text-dark);
+  transition: all var(--transition-fast);
+}
+
+.step-item.active {
+  color: var(--primary);
+}
+
+.step-item.active .step-dot {
+  background-color: var(--primary);
+  box-shadow: 0 0 10px var(--primary);
+  transform: scale(1.2);
+}
+
+.step-item.done {
+  color: var(--accent);
+}
+
+.step-item.done .step-dot {
+  background-color: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+
+/* ==========================================================================
+   Context Menu & Details Modal
+   ========================================================================== */
+
+.context-menu {
+  position: absolute;
+  width: 180px;
+  z-index: 999;
+  display: none;
+  border-radius: var(--radius-sm);
+  padding: 6px;
+  background: rgba(10, 8, 20, 0.9);
+}
+
+.context-menu-item {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  padding: 8px 12px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  transition: all var(--transition-fast);
+}
+
+.context-menu-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.context-menu-item.delete-item {
+  color: #ef4444;
+}
+
+.context-menu-item.delete-item:hover {
+  background: rgba(239, 68, 68, 0.08);
+}
+
+/* ==========================================================================
+   Saved Canvases Sidebar List UI
+   ========================================================================== */
+
+.canvas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 180px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.canvas-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.canvas-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+}
+
+.empty-canvases {
+  font-size: 11px;
+  color: var(--text-dark);
+  text-align: center;
+  padding: 15px 10px;
+  line-height: 1.5;
+  border: 1px dashed rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-sm);
+}
+
+.canvas-item {
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.canvas-item:hover {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: var(--primary-glow);
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.05);
+}
+
+.canvas-item.active-canvas {
+  background: rgba(6, 182, 212, 0.05);
+  border-color: rgba(6, 182, 212, 0.25);
+}
+
+.canvas-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.canvas-item-title {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+
+.canvas-item-meta {
+  font-size: 10px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.canvas-item-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: var(--text-dark);
+}
+
+.canvas-item-delete {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  opacity: 0.4;
+  pointer-events: auto;
+  z-index: 5;
+}
+
+.canvas-item:hover .canvas-item-delete {
+  opacity: 0.8;
+}
+
+.canvas-item-delete:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  opacity: 1 !important;
+}
+
+.canvas-item-edit {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  opacity: 0.4;
+  pointer-events: auto;
+  z-index: 5;
+}
+
+.canvas-item:hover .canvas-item-edit {
+  opacity: 0.8;
+}
+
+.canvas-item-edit:hover {
+  background: rgba(6, 182, 212, 0.1);
+  color: var(--primary);
+  opacity: 1 !important;
+}
+
+
+/* ==========================================================================
+   Save Canvas Dialog Modal UI
+   ========================================================================== */
+
+.save-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(2, 1, 6, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast);
+}
+
+.save-modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.save-modal-panel {
+  width: 380px;
+  padding: 30px;
+  text-align: left;
+  transform: translateY(20px);
+  transition: transform var(--transition-fast);
+}
+
+.save-modal-overlay.active .save-modal-panel {
+  transform: translateY(0);
+}
+
+.save-modal-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  background: linear-gradient(to right, #ffffff, var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.save-modal-desc {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+#canvas-title-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  outline: none;
+  margin-bottom: 20px;
+  transition: all var(--transition-fast);
+}
+
+#canvas-title-input:focus {
+  border-color: var(--primary-glow);
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.1);
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.save-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ==========================================================================
+   Toast Notification Card UI
+   ========================================================================== */
+
+.toast-container {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 10000;
+  pointer-events: none;
+}
+
+.toast {
+  min-width: 280px;
+  max-width: 360px;
+  background: rgba(11, 8, 23, 0.75);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(99, 102, 241, 0.05);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-main);
+  font-size: 12px;
+  font-weight: 500;
+  pointer-events: auto;
+  transform: translateX(120%);
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+  opacity: 0;
+}
+
+.toast.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.toast-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-round);
+}
+
+.toast.success {
+  border-left: 3px solid var(--accent);
+}
+.toast.success .toast-icon {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--accent);
+}
+
+.toast.info {
+  border-left: 3px solid var(--primary);
+}
+.toast.info .toast-icon {
+  background: rgba(6, 182, 212, 0.15);
+  color: var(--primary);
+}
+
+.toast.warning {
+  border-left: 3px solid #f97316;
+}
+.toast.warning .toast-icon {
+  background: rgba(249, 115, 22, 0.15);
+  color: #f97316;
+}
+
+/* ==========================================================================
+   Header Undo Button styling
+   ========================================================================== */
+
+#undo-btn {
+  transition: all var(--transition-fast);
+}
+
+#undo-btn:not(:disabled) {
+  border-color: rgba(6, 182, 212, 0.45) !important;
+  color: var(--primary) !important;
+  background: rgba(6, 182, 212, 0.08) !important;
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.2);
+  animation: undo-active-pulse 2s infinite alternate ease-in-out;
+}
+
+#undo-btn:not(:disabled):hover {
+  background: rgba(6, 182, 212, 0.16) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 18px rgba(6, 182, 212, 0.45);
+}
+
+@keyframes undo-active-pulse {
+  0% { box-shadow: 0 0 6px rgba(6, 182, 212, 0.12); }
+  100% { box-shadow: 0 0 16px rgba(6, 182, 212, 0.35); }
+}
+
+#undo-btn:disabled {
+  opacity: 0.22;
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: grayscale(1);
+}
+
+/* ==========================================================================
+   AI Model Provider Dropdown styling
+   ========================================================================== */
+
+.provider-select {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  padding: 8px 12px;
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  outline: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.provider-select:focus {
+  border-color: rgba(6, 182, 212, 0.25);
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.provider-select option {
+  background-color: #0d0a1b;
+  color: var(--text-main);
+}
+
+/* ==========================================================================
+   Toast Action Button styling
+   ========================================================================== */
+
+.toast-action-btn {
+  background: rgba(6, 182, 212, 0.12);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  color: var(--primary);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+  margin-left: 6px;
+  box-shadow: 0 0 8px rgba(6, 182, 212, 0.1);
+}
+
+.toast-action-btn:hover {
+  background: var(--primary);
+  color: #030208;
+  border-color: var(--primary);
+  box-shadow: 0 0 14px rgba(6, 182, 212, 0.45);
+  transform: translateY(-1px);
+}
+
+.toast-action-btn:active {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Scrollable Virtual Board styling
+   ========================================================================== */
+
+.board-scroll-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  z-index: 1;
+}
+
+/* Premium Custom Scrollbars for the Virtual Board */
+.board-scroll-wrapper::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.board-scroll-wrapper::-webkit-scrollbar-track {
+  background: #010103;
+}
+
+.board-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(6, 182, 212, 0.25);
+  border-radius: 5px;
+  border: 2px solid #010103;
+  transition: background var(--transition-fast);
+}
+
+.board-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(6, 182, 212, 0.65);
+}
+
+.virtual-board {
+  width: 2400px;
+  height: 1800px;
+  position: relative;
+  background: var(--bg-darker);
+  overflow: hidden;
+}
+
+#memo-detail-delete:hover {
+  background: rgba(239, 68, 68, 0.16) !important;
+  border-color: #ef4444 !important;
+  color: #ff6b6b !important;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Card explosion animation */
+.dewdrop-card.exploding {
+  animation: card-explode 0.4s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  pointer-events: none !important;
+}
+
+@keyframes card-explode {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.6);
+    opacity: 0;
+    filter: blur(8px);
+    border-color: rgba(239, 68, 68, 0.8);
+    box-shadow: 0 0 40px rgba(239, 68, 68, 0.4);
+  }
+}
+
+

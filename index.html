@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dewdrop Canvas (듀드롭 캔버스) - 물방울 생각 융합 보드</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Dynamic Cosmic Backdrop -->
+  <div class="stars-backdrop"></div>
+  <div class="ambient-glow"></div>
+
+  <!-- Main Grid Workspace -->
+  <div class="workspace-container">
+    
+    <!-- Left Sidebar: Creator & Settings -->
+    <aside class="sidebar glass-panel">
+      <div class="brand" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div class="brand-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2C12 2 5 9 5 14a7 7 0 0 0 14 0c0-5-7-12-7-12z"></path>
+              <path d="M12 9l.7 1.6 1.6.7-1.6.7-.7 1.6-.7-1.6-1.6-.7 1.6-.7z" fill="currentColor"></path>
+            </svg>
+          </div>
+          <span class="brand-title">Dewdrop Canvas</span>
+        </div>
+        <button id="global-settings-btn" class="btn-secondary" title="설정 / Settings" style="width: 28px; height: 28px; border-radius: 6px; padding: 0; display: flex; align-items: center; justify-content: center; background: transparent; border-color: rgba(255,255,255,0.06); color: var(--text-muted);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="section">
+        <h3 class="section-title" id="drop-section-title">생각 물방울 떨어뜨리기</h3>
+        <textarea id="memo-input" placeholder="머릿속의 작은 아이디어를 여기에 적어보세요... (예: 마른 장작 타는 소리가 아늑해)"></textarea>
+        <button id="add-memo-btn" class="btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="16"></line>
+            <line x1="8" y1="12" x2="16" y2="12"></line>
+          </svg>
+          물방울 생성
+        </button>
+      </div>
+
+      <div class="section">
+        <h3 class="section-title" id="ai-section-title">AI 지능 융합 설정</h3>
+        <p class="section-desc" id="ai-section-desc">물방울을 겹칠 때 통합 메모를 자동 생성할 인공지능 모델 및 공급자를 설정합니다.</p>
+        
+        <div class="api-provider-container" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px;">
+          <select id="ai-provider-select" class="provider-select">
+            <option value="gemini">Gemini 1.5 Flash (기본)</option>
+            <option value="deepseek">DeepSeek Chat (자연스러움 특화)</option>
+            <option value="openrouter">OpenRouter (DeepSeek Chat)</option>
+            <option value="simulator">Poetic Simulator (오프라인)</option>
+          </select>
+        </div>
+
+        <div class="api-key-wrapper">
+          <input type="password" id="api-key-input" placeholder="Gemini API Key (공란 시 서버 설정 사용)">
+          <div class="api-status" id="api-status">Checking server API key...</div>
+        </div>
+      </div>
+
+      <!-- Projects Section -->
+      <div class="section canvases-section" style="display: flex; flex-direction: column; margin-bottom: 25px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <h3 class="section-title" id="project-section-title" style="margin-bottom: 0;">프로젝트 목록</h3>
+          <button id="save-canvas-btn" class="btn-primary" title="새 마인드맵 프로젝트 등록" style="width: auto; height: 26px; padding: 0 10px; font-size: 11.5px; border-radius: 6px; display: flex; align-items: center; gap: 4px; box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>추가</span>
+          </button>
+        </div>
+        <div class="canvas-list" id="project-list">
+          <div class="empty-canvases">불러오는 중...</div>
+        </div>
+      </div>
+
+      <div class="section history-section" style="flex: 1; display: flex; flex-direction: column;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <h3 class="section-title" id="history-section-title" style="margin-bottom: 0;">생각 융합 역사 (History)</h3>
+          <button id="clear-history-btn" class="btn-secondary" title="융합 역사 비우기" style="width: auto; height: 26px; padding: 0 10px; font-size: 11.5px; border-radius: 6px; display: flex; align-items: center; gap: 4px; border-color: rgba(255,255,255,0.06); background: transparent; color: var(--text-muted);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+            <span id="clear-history-span">비우기</span>
+          </button>
+        </div>
+        <div class="history-list" id="history-list">
+          <div class="empty-history">물방울을 겹쳐서 첫 번째 생각의 융합을 일으켜보세요.</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Right Workspace Area: Interactive Liquid Canvas -->
+    <main class="canvas-workspace" id="canvas-workspace">
+      <div class="workspace-header">
+        <div class="status-badge">
+          <div class="status-dot"></div>
+          <span>물리 기반 유체 캔버스 가동 중</span>
+        </div>
+        <div style="display: flex; gap: 8px; pointer-events: auto;">
+          <button id="undo-btn" class="btn-secondary" title="되돌리기 (Ctrl + Z)" disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 7v6h6"></path>
+              <path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"></path>
+            </svg>
+          </button>
+          <button id="ai-auto-merge-btn" class="btn-secondary" title="AI 자동 추천 융합 (AI Auto-Merge)" style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.12), rgba(6, 182, 212, 0.12)); border-color: rgba(168, 85, 247, 0.2); color: #c084fc;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </button>
+          <button id="export-markdown-btn" class="btn-secondary" title="마크다운으로 내보내기">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </button>
+          <button id="clear-canvas-btn" class="btn-secondary" title="캔버스 전체 비우기">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Scrollable Board Wrapper -->
+      <div class="board-scroll-wrapper" id="board-scroll-wrapper">
+        <div class="virtual-board" id="virtual-board">
+          <!-- liquid canvas element -->
+          <!-- Liquid Compositor Container (Only filters the canvas background metaballs) -->
+          <div class="liquid-compositor-container" id="canvas-container">
+            <!-- Background Fluid Physics Canvas -->
+            <canvas id="physics-canvas"></canvas>
+          </div>
+          
+          <!-- Interactive Card Overlay Container (Crisp text & flawless hardware transitions) -->
+          <div class="memos-overlay" id="memos-overlay"></div>
+        </div>
+      </div>
+
+      <!-- Bottom Floating Instructions -->
+      <div class="floating-tips glass-panel">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary); margin-right: 8px;">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12" y2="8"></line>
+        </svg>
+        <span>생각 물방울을 드래그해 가까이 가져가면 쫀득하게 합쳐지며 AI 요약이 시작됩니다. (되돌리려면 Ctrl+Z 또는 상단 되돌리기 버튼 클릭)</span>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- AI Synthesis Fullscreen Overlay -->
+  <div class="synthesis-overlay" id="synthesis-overlay">
+    
+    <!-- Beautiful Floating Ambient Cosmic Dewdrops backdrop -->
+    <div class="synthesis-bg-bubbles">
+      <div class="bubble b-1"></div>
+      <div class="bubble b-2"></div>
+      <div class="bubble b-3"></div>
+      <div class="bubble b-4"></div>
+      <div class="bubble b-5"></div>
+      <div class="bubble b-6"></div>
+      <div class="bubble b-7"></div>
+      <div class="bubble b-8"></div>
+    </div>
+
+    <div class="synthesis-panel glass-panel">
+      <div class="synthesis-aura">
+        <!-- Orbiting rotating rings -->
+        <div class="droplet-orbit-ring ring-1"></div>
+        <div class="droplet-orbit-ring ring-2"></div>
+        
+        <div class="droplet-pulse" id="droplet-pulse"></div>
+        <div class="droplet-core"></div>
+        
+        <!-- Orbiting satellite droplets -->
+        <div class="satellite-droplet sat-1"></div>
+        <div class="satellite-droplet sat-2"></div>
+      </div>
+      <h2 class="synthesis-title">생각의 물방울 융합 중</h2>
+      <p class="synthesis-desc">두 생각의 접점을 추출하고 부족한 부분을 분석하여 완벽한 하나의 생각으로 정돈하고 보완하고 있습니다...</p>
+      
+      <!-- Synthesis progress step details -->
+      <div class="synthesis-steps">
+        <div class="step-item active" id="step-extract">
+          <div class="step-dot"></div>
+          <span>두 메모 핵심 개념 추출 중</span>
+        </div>
+        <div class="step-item" id="step-synthesis">
+          <div class="step-dot"></div>
+          <span>논리적 합치 및 중복 배제 요약 중</span>
+        </div>
+        <div class="step-item" id="step-enhance">
+          <div class="step-dot"></div>
+          <span>AI 보완 분석 및 논리 확장 중</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Context Menu for Details / Deletion / Enhancement -->
+  <div class="context-menu glass-panel" id="context-menu" style="width: 190px;">
+    <button class="context-menu-item" id="ctx-enhance-btn" style="color: var(--primary); border-bottom: 1px solid rgba(255, 255, 255, 0.05); border-radius: 6px 6px 0 0; padding-bottom: 10px; margin-bottom: 4px;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+      </svg>
+      AI 생각 보강 & 정돈
+    </button>
+    <button class="context-menu-item delete-item" id="ctx-delete-btn" style="border-radius: 0 0 6px 6px;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+        <polyline points="3 6 5 6 21 6"></polyline>
+        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+      </svg>
+      생각 물방울 터뜨리기
+    </button>
+  </div>
+
+  <!-- Dialog Modal for Project Creation / Renaming -->
+  <div class="save-modal-overlay" id="save-modal-overlay">
+    <div class="save-modal-panel glass-panel">
+      <h3 class="save-modal-title" id="modal-title">새 프로젝트 등록</h3>
+      <p class="save-modal-desc" id="modal-desc">마인드맵 프로젝트의 이름을 입력해 주세요. 새로운 독립된 물리 생각 공간이 생성됩니다.</p>
+      <input type="text" id="canvas-title-input" placeholder="예: 우주 물리학 아이디어 지도" maxlength="30">
+      <div class="save-modal-actions">
+        <button id="save-modal-cancel" class="btn-secondary" style="width: auto; padding: 10px 18px;">취소</button>
+        <button id="save-modal-confirm" class="btn-primary" style="width: auto; padding: 10px 22px;">등록하기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Memo Detail & Editing Modal -->
+  <div class="save-modal-overlay" id="memo-detail-overlay">
+    <div class="save-modal-panel glass-panel" style="width: 440px; padding: 35px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <h3 class="save-modal-title" style="margin-bottom: 0; font-size: 17px;">생각 물방울 들여다보기</h3>
+        <span id="memo-detail-date" style="font-size: 11px; color: var(--text-muted); font-family: var(--font-display);">2026-05-26 13:00</span>
+      </div>
+      <p class="save-modal-desc" style="margin-bottom: 15px;">이 물방울에 담긴 생각의 원문을 들여다보고 자유롭게 수정하거나 보완해 보세요.</p>
+      
+      <textarea id="memo-detail-text" style="height: 160px; font-size: 13px; line-height: 1.6; margin-bottom: 20px; background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.08); padding: 14px; color: var(--text-main); border-radius: var(--radius-sm); outline: none; transition: border-color 0.2s;"></textarea>
+      
+      <div class="save-modal-actions" style="display: flex; justify-content: space-between; width: 100%;">
+        <button id="memo-detail-delete" class="btn-secondary delete-item" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.25); background: rgba(239, 68, 68, 0.05); display: flex; align-items: center; gap: 6px; width: auto; padding: 10px 16px; transition: all 0.2s;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+          <span>터뜨리기</span>
+        </button>
+        
+        <div style="display: flex; gap: 10px;">
+          <button id="memo-detail-cancel" class="btn-secondary" style="width: auto; padding: 10px 18px;">닫기</button>
+          <button id="memo-detail-save" class="btn-primary" style="width: auto; padding: 10px 22px; background: linear-gradient(135deg, var(--primary), var(--accent)); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);">저장하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global Settings Modal -->
+  <div class="save-modal-overlay" id="settings-modal-overlay">
+    <div class="save-modal-panel glass-panel" style="width: 380px; padding: 35px;">
+      <h3 class="save-modal-title" id="settings-modal-title">설정</h3>
+      <p class="save-modal-desc" id="settings-modal-desc">언어 환경 설정을 구성할 수 있습니다.</p>
+      
+      <div style="margin-bottom: 25px; display: flex; flex-direction: column; gap: 8px;">
+        <label id="settings-lang-label" style="font-size: 12px; color: var(--text-muted); font-weight: 500;">표시 언어 / Display Language</label>
+        <select id="settings-language-select" class="provider-select" style="background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.08); color: var(--text-main); font-size: 13px; padding: 10px; border-radius: var(--radius-sm); outline: none;">
+          <option value="ko">한국어 (Korean)</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+      
+      <div class="save-modal-actions" style="display: flex; justify-content: flex-end; width: 100%;">
+        <button id="settings-modal-close" class="btn-primary" style="width: auto; padding: 10px 24px; background: linear-gradient(135deg, var(--primary), var(--accent));">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Markdown Export Modal -->
+  <div class="save-modal-overlay" id="markdown-export-overlay">
+    <div class="save-modal-panel glass-panel" style="width: 550px; padding: 35px;">
+      <h3 class="save-modal-title" id="export-modal-title">마크다운 생각 내보내기</h3>
+      <p class="save-modal-desc" id="export-modal-desc">현재 캔버스의 생각과 융합 역사를 정돈된 마크다운 문서로 편집하고 파일로 다운로드하거나 복사할 수 있습니다.</p>
+      
+      <textarea id="markdown-export-text" style="height: 320px; font-size: 12.5px; line-height: 1.6; margin-bottom: 20px; background: rgba(0,0,0,0.55); border: 1px solid rgba(255,255,255,0.08); padding: 16px; color: var(--text-main); border-radius: var(--radius-sm); outline: none; font-family: monospace;"></textarea>
+      
+      <div class="save-modal-actions" style="display: flex; justify-content: space-between; width: 100%;">
+        <button id="export-markdown-close" class="btn-secondary" style="width: auto; padding: 10px 18px;">닫기</button>
+        
+        <div style="display: flex; gap: 10px;">
+          <button id="export-markdown-copy" class="btn-secondary" style="width: auto; padding: 10px 16px; display: flex; align-items: center; gap: 6px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span id="export-copy-btn-text">복사하기</span>
+          </button>
+          <button id="export-markdown-download" class="btn-primary" style="width: auto; padding: 10px 22px; background: linear-gradient(135deg, var(--primary), var(--secondary)); box-shadow: 0 4px 15px rgba(6, 182, 212, 0.2); display: flex; align-items: center; gap: 6px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span id="export-download-btn-text">다운로드</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
