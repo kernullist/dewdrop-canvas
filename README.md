@@ -64,7 +64,7 @@ Dewdrop Canvas runs entirely on a lightweight local Express server.
 Navigate to your project directory and install the necessary dependencies:
 ```bash
 # Navigate to directory
-cd C:\Users\kernullist\.gemini\antigravity\scratch\dewdrop-canvas
+cd dewdrop-canvas
 
 # Install dependencies (Express, CORS, dotenv, node-fetch)
 npm install
@@ -94,8 +94,8 @@ Open your browser and navigate to:
 
 ## 📂 File Architecture
 
-* **[`server.js`](file:///c:/Users/kernullist/.gemini/antigravity/scratch/dewdrop-canvas/server.js)**: Local Node.js Express server hosting the REST endpoints, secure backend LLM proxy engines, multi-language prompt configurations, and offline poetic simulators.
-* **[`app.js`](file:///c:/Users/kernullist/.gemini/antigravity/scratch/dewdrop-canvas/app.js)**: Core client script managing HTML5 2D Canvas rendering, spring-mass physics, Web Audio procedural synthesis, settings modals, and frontend button handlers.
-* **[`index.html`](file:///c:/Users/kernullist/.gemini/antigravity/scratch/dewdrop-canvas/index.html)**: Clean HTML5 semantic layout containing the glassmorphic settings sidebar, canvas workspace, and loading overlays.
-* **[`style.css`](file:///c:/Users/kernullist/.gemini/antigravity/scratch/dewdrop-canvas/style.css)**: Design tokens, animated cosmic backdrops, glassmorphic panels, and the critical blur-contrast liquid compositing engine.
-* **[`package.json`](file:///c:/Users/kernullist/.gemini/antigravity/scratch/dewdrop-canvas/package.json)**: Node dependencies configuration.
+* **[server.js](./server.js)**: Local Node.js Express server hosting the REST endpoints, secure backend LLM proxy engines, multi-language prompt configurations, and offline poetic simulators.
+* **[app.js](./app.js)**: Core client script managing HTML5 2D Canvas rendering, spring-mass physics, Web Audio procedural synthesis, settings modals, and frontend button handlers.
+* **[index.html](./index.html)**: Clean HTML5 semantic layout containing the glassmorphic settings sidebar, canvas workspace, and loading overlays.
+* **[style.css](./style.css)**: Design tokens, animated cosmic backdrops, glassmorphic panels, and the critical blur-contrast liquid compositing engine.
+* **[package.json](./package.json)**: Node dependencies configuration.
